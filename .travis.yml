@@ -10,10 +10,7 @@ sudo: required
 
 language: generic
 
-if: branch = master
-
 before_install:
-
   - export SSHPASS=$DEPLOY_PASS
   - export SSH_CMD="sshpass -e ssh -p $DEPLOY_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
@@ -21,6 +18,6 @@ install:
   - docker-compose -f docker-compose.yml build
 
 after_success:
-  - docker save web-test | $SSH_CMD $DEPLOY_USER@$DEPLOY_HOST docker load
-  - rsync -e "$SSH_CMD" docker-compose.yml $DEPLOY_USER@$DEPLOY_HOST:~/web/
-  - $SSH_CMD $DEPLOY_USER@$DEPLOY_HOST "cd web && docker-compose down && docker-compose up -d"
+  - docker save checkup-backend checkup-frontend | $SSH_CMD $DEPLOY_USER@$DEPLOY_HOST docker load
+  - rsync -e "$SSH_CMD" docker-compose.yml $DEPLOY_USER@$DEPLOY_HOST:~/checkup
+  - $SSH_CMD $DEPLOY_USER@$DEPLOY_HOST "cd checkup && docker-compose down && docker-compose up -d"

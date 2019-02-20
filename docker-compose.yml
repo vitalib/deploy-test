@@ -1,9 +1,11 @@
 version: "2.0"
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    image: web-test:dev
-  redis:
-    image: "redis:alpine"     
+  backend:
+    build:
+      context: ./backend
+      image: checkup-backend:dev 
+
+  frontend:
+    build:
+      context: ./frontend
+      imange: checkup-frontend:dev
