@@ -2,9 +2,11 @@ version: "2.0"
 
 services:
   backend:
+    build:
+      context: ./backend
     image: "checkup-backend:dev"
-    ports: 
-       - "8000:80"
 
   frontend:
+    build:
+      context: ./frontend
     image: "checkup-frontend:dev"

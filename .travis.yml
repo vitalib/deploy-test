@@ -15,7 +15,7 @@ before_install:
   - export SSH_CMD="sshpass -e ssh -p $DEPLOY_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 install:
-  - docker-compose -f docker-compose.yml build
+  - docker-compose -f docker-compose.yml -f docker-compose.override.yml build
 
 after_success:
   - docker save checkup-backend checkup-frontend | $SSH_CMD $DEPLOY_USER@$DEPLOY_HOST docker load
